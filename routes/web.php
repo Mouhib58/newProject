@@ -6,14 +6,15 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 
 Route::get('/', [HomeController::class ,'home']);
-Route::get('/user/dashboard', function () {
+Route::get('/home', function () {
     return view('home/index');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->name('logout');
 });
 
 require __DIR__.'/auth.php';

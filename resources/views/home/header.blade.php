@@ -34,8 +34,18 @@
               <a class="nav-link" href="contact.html">Contact Us</a>
             </li>
           </ul>
+          
           <div class="user_option">
-            <a href="{{url('/login')}}">
+          @if(Auth::check())
+          <div class="list-inline-item logout"> 
+          <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                        <input type="submit" value="Logout">
+                        </form>
+            </div>
+
+@else
+<a href="{{url('/login')}}">
               <i class="fa fa-user" aria-hidden="true"></i>
               <span>
                 Login
@@ -48,6 +58,10 @@
                 Registre
               </span>
             </a>
+    
+@endif
+
+            
             <a href="">
               <i class="fa fa-shopping-bag" aria-hidden="true"></i>
             </a>
